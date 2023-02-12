@@ -9,6 +9,7 @@ import { api } from "../utils/Api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 import EditProfilePopup from "./EditProfilePopup.jsx";
 import EditAvatarPopup from './EditAvatarPopup.jsx';
+import AddPlacePopup from "./AddPlacePopup.jsx";
 
 function App() {
   const [isEditProfileOpened, setIsEditProfileOpened] = useState(false);
@@ -55,6 +56,15 @@ function App() {
         closeAllPopups();
       })
       .catch(err => console.log(err));
+  }
+
+  function handleAddPlaceSubmit (data) {
+    api
+      .addCard(data)
+      .then((res) => {
+        setCards([res, ...cards]);
+        closeAllPopups();
+      })
   }
 
   function handleCardDelete (card) {
@@ -121,20 +131,10 @@ function App() {
             }
             {
               isAddPlaceOpened && (
-                <PopupWithForm
-                  name='add'
-                  title='Новое место'
+                <AddPlacePopup
                   isOpen={isAddPlaceOpened}
                   onClose={closeAllPopups}
-                  children={
-                    <>
-                      <input id="name-input" type="text" className="popup__input popup__input_name" name="name" minLength="2" maxLength="30" required placeholder="Название"/>
-                      <span className="popup__span-error name-input-error"></span>
-                      <input id='url-input' type="url" className="popup__input popup__input_url" name="url" required placeholder="Ссылка на картинку"/>
-                      <span className="popup__span-error url-input-error"></span>
-                      <button className="popup__save-button" type="submit">Создать</button>
-                    </>
-                  }
+                  onAddPlace={handleAddPlaceSubmit}
                 />
               )
             }

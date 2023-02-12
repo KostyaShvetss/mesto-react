@@ -23,7 +23,12 @@ function Main ({handleEditProfileClick, handleAddPlaceClick, handleEditAvatarCli
       </section>
       <section className="elements">
         {cards.map((card) => {
-          return <Card card={card} key={card._id} onCardClick={onCardClick} onCardLike={onCardLike} onCardDelete={onCardDelete}/>
+          return <Card
+            card={card}
+            key={card._id}
+            onCardClick={onCardClick}
+            onCardLike={onCardLike}
+            onCardDelete={onCardDelete}/>
         })}
       </section>
     </main>
