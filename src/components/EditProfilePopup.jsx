@@ -26,7 +26,7 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
   useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
-  }, [currentUser])
+  }, [currentUser, isOpen])
 
   return (
     <PopupWithForm
@@ -35,13 +35,13 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
+      buttonText={'Сохранить'}
       children={
         <>
           <input id="data-name-input" type="text" className="popup__input popup__input_data_name" name="name" required minLength="2" maxLength="40" placeholder="Введите Ваше имя" value={name} onChange={handleNameChange}/>
           <span className="popup__span-error"></span>
           <input id='data-about-input' type="text" className="popup__input popup__input_data_about" name="about" required minLength="2" maxLength="200" placeholder="Введите информацию о себе" value={description} onChange={handleDescriptionChange}/>
           <span className="popup__span-error"></span>
-          <button className="popup__save-button" type="submit">Сохранить</button>
         </>
       }
     />

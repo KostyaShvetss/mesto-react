@@ -21,11 +21,11 @@ function EditAvatarPopup ({isOpen, onClose, onUpdateAvatar}) {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
+      buttonText={'Да'}
       children={
         <>
           <input ref={ref} id='avatar-input' type="url" className="popup__input popup__input_avatar" name="avatar" required placeholder="Ссылка на картинку"/>
           <span className="popup__span-error avatar-input-error"></span>
-          <button className="popup__save-button" type="submit">Да</button>
         </>
     }
   />

@@ -20,19 +20,17 @@ function Card ({card, onCardClick, onCardLike, onCardDelete}) {
   }
 
   return (
-    <>
-      <article className="element">
-        {isOwn && <button aria-label="Удалить карточку" className="element__trash-bin" type="button" onClick={handleTrashBinClick}/>}
-        <img src={card.link} alt={card.name} className="element__image" onClick={handleClick}/>
-        <div className="element__bar">
-          <h2 className="element__name">{card.name}</h2>
-          <div className="element__container">
-            <button aria-label="Мне нравится" className={cardLikeButtonClassName} type="button" onClick={handleLikeClick} />
-            <span className="element__counter">{card.likes.length}</span>
-          </div>
+    <article className="element">
+      {isOwn && <button aria-label="Удалить карточку" className="element__trash-bin" type="button" onClick={handleTrashBinClick}/>}
+      <img src={card.link} alt={card.name} className="element__image" onClick={handleClick}/>
+      <div className="element__bar">
+        <h2 className="element__name">{card.name}</h2>
+        <div className="element__container">
+          <button aria-label="Мне нравится" className={cardLikeButtonClassName} type="button" onClick={handleLikeClick} />
+          <span className="element__counter">{card.likes.length}</span>
         </div>
-      </article>
-    </>
+      </div>
+    </article>
   )
 }
 

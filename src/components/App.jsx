@@ -69,9 +69,9 @@ function App() {
 
   function handleCardDelete (card) {
     api.deleteCard(card._id)
-    .then((newCard) => {
+    .then(() => {
       const newCardState = cards.filter((cardElement) => {
-        return cardElement._id === card._id ? "" : newCard;
+        return (cardElement._id !== card._id);
       })
       setCards(newCardState);
     }).catch(err => console.log(err));
@@ -80,13 +80,17 @@ function App() {
   function handleCardLike (card) {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
     if (isLiked) {
-      api.deleteLike(card._id, !isLiked).then((newCard) => {
+      api.deleteLike(card._id, !isLiked)
+      .then((newCard) => {
         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-    });
+    })
+      .catch(err => console.log(err));
     } else {
-      api.putLike(card._id, !isLiked).then((newCard) => {
+      api.putLike(card._id, !isLiked)
+      .then((newCard) => {
         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-    });
+    })
+      .catch(err => console.log(err));
     }
 
 }
@@ -122,29 +126,23 @@ function App() {
                 setSelectedCard(card)}}/>
             <Footer/>
             {
-              isEditProfileOpened && (
-                <EditProfilePopup
-                  isOpen={isEditProfileOpened}
-                  onClose={closeAllPopups}
-                  onUpdateUser={handleUpdateUser}/>
-              )
+              <EditProfilePopup
+                isOpen={isEditProfileOpened}
+                onClose={closeAllPopups}
+                onUpdateUser={handleUpdateUser}/>
             }
             {
-              isAddPlaceOpened && (
-                <AddPlacePopup
-                  isOpen={isAddPlaceOpened}
-                  onClose={closeAllPopups}
-                  onAddPlace={handleAddPlaceSubmit}
-                />
-              )
+              <AddPlacePopup
+                isOpen={isAddPlaceOpened}
+                onClose={closeAllPopups}
+                onAddPlace={handleAddPlaceSubmit}
+              />
             }
             {
-              isEditAvatarOpened && (
-                <EditAvatarPopup
-                  isOpen={isEditAvatarOpened}
-                  onClose={closeAllPopups}
-                  onUpdateAvatar={handleUpdateAvatar}/>
-              )
+              <EditAvatarPopup
+                isOpen={isEditAvatarOpened}
+                onClose={closeAllPopups}
+                onUpdateAvatar={handleUpdateAvatar}/>
             }
             {
               <ImagePopup isOpen={isImagePopupOpened} card={selectedCard} onClose={closeAllPopups}/>
